@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec  4 12:49:43 2018
-
-@author: rohi
-"""
+#Document Scanner - Bayview AICLUB
 
 from skimage.filters import threshold_local
 import numpy as np
@@ -41,6 +35,9 @@ for c in cnts:
 print("STEP 2: Find contours of paper")
 cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
 cv2.imshow("Outline", image)
+
+
+
 
 cv2.imshow("blur", blur)
 cv2.imshow("Canny", edged)
