@@ -25,8 +25,7 @@ for c in cnts:
 	peri = cv2.arcLength(c, True)
 	approx = cv2.approxPolyDP(c, 0.02 * peri, True)
  
-	# if our approximated contour has four points, then we
-	# can assume that we have found our screen
+	# if our approximated contour has four points, then we can assume that we have found our screen
 	if len(approx) == 4:
 		screenCnt = approx
 		break
@@ -36,13 +35,17 @@ print("STEP 2: Find contours of paper")
 cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
 cv2.imshow("Outline", image)
 
+warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 
+warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
 
+warped = cv2.adaptiveThreshold(warped,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,5,4)
 
-cv2.imshow("blur", blur)
-cv2.imshow("Canny", edged)
-cv2.imshow("Resized", image)
+ 
+# show the original and scanned images
+print("STEP 3: Apply perspective transform")
+cv2.imshow("Original", imutils.resize(orig, height = 650))
+cv2.imshow("Scanned", imutils.resize(warped, height = 650))
 cv2.waitKey(0)
-cv2.destroyAllWindows()
 
 
