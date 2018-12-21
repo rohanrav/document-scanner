@@ -5,7 +5,6 @@ import numpy as np
 import cv2
 import imutils
 from transform import four_point_transform
-
 image = cv2.imread("recipt.jpg")
 ratio = image.shape[0] / 500
 orig = image.copy()
